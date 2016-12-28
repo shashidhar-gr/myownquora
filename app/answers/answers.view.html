@@ -1,0 +1,25 @@
+<div>
+	<main-navigation></main-navigation>
+
+	<div class = "col-mid-8 col-mid-offset-3" ng-repeat = "eachQtnAnswer in questionAnswers">
+		<p>
+			Answer written . {{eachQtnAnswer.tags}} . {{eachQtnAnswer.createdAt}}
+			
+			<strong><h6> {{ eachQtnAnswer.question }}</h6></strong>
+			
+			Written by . {{eachQtnAnswer.answers[0].writer}}
+			<br>
+			
+			{{ eachQtnAnswer.answers[0].answer }}
+				
+			<br>
+
+			<button id = "upvoteBtn" class="btn btn-primary btn-sm" ng-click = upvoteAnswer(eachQtnAnswer.answers[0])>upvote | {{ eachQtnAnswer.answers[0].upvotes }}</button>
+			<button class="btn btn-default btn-link" ng-click = downvoteAnswer(eachQtnAnswer)>downvote</button>
+			<button class="btn btn-default btn-link" ng-click = comments(eachQtnAnswer)>
+			<!--<span class="glyphicon glyphicon-comment" aria-hidden="true"></span>-->
+			  comments</button>
+		</p>
+	</div>
+</div>
+

@@ -1,0 +1,17 @@
+.navbar-default .navbar-header .navbar-brand {
+    color: #b30000;
+}
+#postAnswerBtn {
+	background-color: #ebf0fa;
+	color: #4775d1;
+	font-size: 12px;
+}
+#upvoteBtn {
+	background-color: #ebf0fa;
+	color: #4775d1;
+	font-size: 12px;
+}
+#newQuestionText {
+	border: none;
+    background-color: #ebebe0;
+}
