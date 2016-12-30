@@ -12,6 +12,6 @@ angular.module('quoraApp')
 				$location.path('/home');
 			}
 		});
+		
 	}
-
 }]);

@@ -2,24 +2,25 @@ var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var passport = require('passport');
-var session = require('express-session');
+var morgan = require('morgan');
+
 var app = express();
 
-mongoose.connect('mongodb://localhost:27017/myquora');
+//Connecting to mongodb.
+var configDB = require('./server/config/database.js');
+mongoose.connect(configDB.url);
 
-var authenticationController = require('./server/controllers/anuthentication.controller.js');
+require('./server/config/passport.js')(passport);
 
+//set up express application.
+app.use(morgan('dev'));
 app.use(bodyParser.json());
+app.use(passport.initialize());
 app.use('/app', express.static(__dirname + "/app"));
 app.use('/node_modules', express.static(__dirname + "/node_modules"));
 
-app.get('/', function(req, res){
-	res.sendfile('index.html');
-});
-
-//Athentication
-app.post('/api/user/signup', authenticationController.signup);
-app.post('/api/user/login', authenticationController.login);
+//Routes.
+require('./server/routes.js')(app, passport);
 
 app.listen('3000', function(){
 	console.log("Server is running on port 3000.");

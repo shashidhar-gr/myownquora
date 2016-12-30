@@ -39,9 +39,27 @@ angular.module('quoraApp')
 			});
 		}
 
+		function signup(user, callback){
+
+			$http(
+			{
+				method: 'POST',
+				url: '/api/user/signup',
+				data: user
+			}).then(function success(response){
+				setCredentials(user.email, user.password);
+				return callback(false, response);
+
+			}, function error(response){
+				
+				return callback(true, response);
+			});
+		}
+
 		service.setCredentials = setCredentials;
 		service.clearCredentials = clearCredentials;
 		service.login = login;
+		service.signup = signup;
 
 		return service;
 	}]);

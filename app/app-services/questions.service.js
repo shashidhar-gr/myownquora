@@ -1,5 +1,5 @@
 angular.module('quoraApp')
-	.factory('questionService', ['$cookies', '$rootScope', function($cookies, $rootScope){
+	.factory('questionService', ['$cookies', '$rootScope', '$http', function($cookies, $rootScope, $http){
 		var service = {};
 		service.postQuestion = postQuestion;
 		service.getQuestions = getQuestions;
@@ -54,7 +54,19 @@ angular.module('quoraApp')
 				cookieExp.setDate(cookieExp.getDate() + 7);
 
 				$cookies.putObject('globals', cookieGlobals, { expires: cookieExp });
-				return callback(false);
+
+				$http(
+				{
+					method: 'POST',
+					url: '/api/user/question',
+					data: question
+				}).then(function success(response){
+					return callback(false, response);
+
+				}, function error(response){
+					
+					return callback(true, response);
+				});
 			}
 			else{
 				questions = [];
@@ -78,7 +90,19 @@ angular.module('quoraApp')
 				cookieExp.setDate(cookieExp.getDate() + 7);
 
 				$cookies.putObject('globals', cookieGlobals, { expires: cookieExp });
-				return callback(false);
+				
+				$http(
+				{
+					method: 'POST',
+					url: '/api/user/question',
+					data: question
+				}).then(function success(response){
+					return callback(false, response);
+
+				}, function error(response){
+					
+					return callback(true, response);
+				});
 			}
 		}
 	}]);
